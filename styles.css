@@ -698,111 +698,508 @@ footer p {
 }
 
 @media (max-width: 768px) {
+    /* Header mais compacto */
+    header {
+        padding: var(--spacing-md) 0;
+    }
+
     h1 {
-        font-size: 2rem;
+        font-size: 1.5rem;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
     }
 
     h2 {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
+    }
+
+    h3 {
+        font-size: 1.1rem;
     }
 
     .header-content {
         flex-direction: column;
         text-align: center;
+        gap: var(--spacing-sm);
     }
 
     .header-controls {
         justify-content: center;
     }
 
+    .icon-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    /* Banner "Hoje" mais compacto */
+    .today-banner {
+        padding: var(--spacing-md) 0;
+    }
+
     .banner-content {
         flex-direction: column;
         text-align: center;
+        gap: var(--spacing-sm);
     }
 
     .today-info h2 {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
+    }
+
+    .today-info p {
+        font-size: 0.85rem;
     }
 
     .streak-number {
         font-size: 2rem;
     }
 
-    .main-layout {
+    .today-streak {
         padding: var(--spacing-sm);
+    }
+
+    /* Menu de navegação MUITO mais compacto */
+    nav {
+        position: static; /* Remove sticky em mobile */
+        box-shadow: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    nav ul {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2px;
+        padding: 4px;
+    }
+
+    nav li {
+        margin: 0;
+    }
+
+    nav a {
+        padding: 6px 4px;
+        font-size: 0.75rem;
+        text-align: center;
+        display: block;
+        line-height: 1.2;
+    }
+
+    /* Layout principal */
+    .main-layout {
+        padding: var(--spacing-xs);
+        gap: var(--spacing-xs);
+    }
+
+    /* Seções mais compactas */
+    .section {
+        padding: var(--spacing-sm);
+        margin-bottom: var(--spacing-sm);
+        border-radius: 8px;
+    }
+
+    .section-header {
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .section-header h2 {
+        font-size: 1.2rem;
+    }
+
+    .collapse-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 1.2rem;
+    }
+
+    /* Dashboard "Hoje" */
+    .today-dashboard {
+        grid-template-columns: 1fr;
         gap: var(--spacing-sm);
     }
 
-    .today-dashboard {
-        grid-template-columns: 1fr;
+    .today-study-card,
+    .today-rosary-card,
+    .today-prayer-card,
+    .today-progress-card {
+        padding: var(--spacing-sm);
     }
 
+    .today-study-card h3,
+    .today-rosary-card h3,
+    .today-prayer-card h3,
+    .today-progress-card h3 {
+        font-size: 1rem;
+        margin-bottom: var(--spacing-xs);
+    }
+
+    .material,
+    .action,
+    .duration {
+        font-size: 0.9rem;
+    }
+
+    .mystery-emoji {
+        font-size: 2rem;
+    }
+
+    .mystery-name {
+        font-size: 1rem;
+    }
+
+    /* Cards de dias da semana */
     .week-schedule {
         grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
     }
 
+    .day-card {
+        border-radius: 6px;
+    }
+
+    .day-header {
+        padding: var(--spacing-sm);
+    }
+
+    .day-header h3 {
+        font-size: 1rem;
+    }
+
+    .day-content {
+        padding: var(--spacing-sm);
+    }
+
+    .day-content p {
+        font-size: 0.85rem;
+        margin-bottom: var(--spacing-xs);
+    }
+
+    /* Orações */
     .prayers-container {
         grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
     }
 
+    .prayer-card {
+        padding: var(--spacing-sm);
+    }
+
+    .prayer-text {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    /* Materiais */
     .materials-grid {
         grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
     }
 
+    .material-category {
+        padding: var(--spacing-sm);
+    }
+
+    .material-category li {
+        padding: var(--spacing-xs) 0;
+        font-size: 0.9rem;
+    }
+
+    /* Metas */
     .goals-grid {
         grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+    }
+
+    .goal-category {
+        padding: var(--spacing-sm);
     }
 
     .rules-columns {
         grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
     }
 
+    .do-column,
+    .dont-column {
+        padding: var(--spacing-sm);
+    }
+
+    /* Citações */
     .quotes-section {
         grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
     }
 
+    .quote-card {
+        padding: var(--spacing-md);
+    }
+
+    .quote-text {
+        font-size: 1.1rem;
+    }
+
+    /* Estatísticas */
     .stats-overview {
         grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+    }
+
+    .stat-widget {
+        padding: var(--spacing-sm);
     }
 
     .activity-bar {
-        grid-template-columns: 80px 1fr 50px;
+        grid-template-columns: 70px 1fr 45px;
+        gap: var(--spacing-xs);
+        font-size: 0.85rem;
+    }
+
+    .activity-label {
+        font-size: 0.8rem;
+    }
+
+    .activity-percent {
+        font-size: 0.8rem;
     }
 
     .achievements {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-sm);
     }
 
-    nav ul {
-        flex-direction: column;
-        align-items: center;
+    .achievement {
+        padding: var(--spacing-sm);
     }
 
-    nav li {
-        margin: var(--spacing-xs) 0;
+    .achievement-icon {
+        font-size: 2rem;
     }
 
-    .section {
-        padding: var(--spacing-md);
+    .achievement-name {
+        font-size: 0.75rem;
     }
 
+    /* Tabela tracker */
+    .tracker-table {
+        font-size: 0.85rem;
+    }
+
+    th, td {
+        padding: var(--spacing-xs);
+    }
+
+    /* Modal */
     .modal-content {
         width: 95%;
         padding: var(--spacing-md);
+        max-height: 85vh;
+    }
+
+    /* Footer */
+    footer {
+        padding: var(--spacing-md) 0;
+        font-size: 0.9rem;
+    }
+
+    .footer-blessing {
+        font-size: 0.95rem;
     }
 }
 
 @media (max-width: 480px) {
+    /* Header ultra-compacto */
     h1 {
+        font-size: 1.3rem;
+    }
+
+    .subtitle {
+        font-size: 0.8rem;
+    }
+
+    .large-text {
+        font-size: 1rem;
+    }
+
+    .stat-number {
+        font-size: 1.8rem;
+    }
+
+    .stat-label {
+        font-size: 0.8rem;
+    }
+
+    /* Menu em 3 colunas para caber melhor */
+    nav ul {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        padding: 2px;
+    }
+
+    nav a {
+        padding: 4px 2px;
+        font-size: 0.7rem;
+    }
+
+    /* Banner ainda mais compacto */
+    .today-banner {
+        padding: var(--spacing-sm) 0;
+    }
+
+    .today-info h2 {
+        font-size: 1.1rem;
+    }
+
+    .today-info p {
+        font-size: 0.75rem;
+    }
+
+    .streak-number {
+        font-size: 1.8rem;
+    }
+
+    .streak-label {
+        font-size: 0.75rem;
+    }
+
+    /* Seções ultra-compactas */
+    .section {
+        padding: var(--spacing-xs);
+        margin-bottom: var(--spacing-xs);
+    }
+
+    .section-header h2 {
+        font-size: 1.1rem;
+    }
+
+    /* Cards menores */
+    .today-study-card,
+    .today-rosary-card,
+    .today-prayer-card,
+    .today-progress-card {
+        padding: var(--spacing-xs);
+    }
+
+    .today-study-card h3,
+    .today-rosary-card h3,
+    .today-prayer-card h3,
+    .today-progress-card h3 {
+        font-size: 0.95rem;
+    }
+
+    .material,
+    .action,
+    .duration {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+
+    /* Day cards */
+    .day-header h3 {
+        font-size: 0.95rem;
+    }
+
+    .day-content p {
+        font-size: 0.8rem;
+        line-height: 1.4;
+    }
+
+    /* Rosary grid */
+    .rosary-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--spacing-xs);
+    }
+
+    .rosary-day {
+        padding: var(--spacing-xs);
+    }
+
+    .rosary-day .emoji {
         font-size: 1.5rem;
     }
-    
-    .large-text {
-        font-size: 1.2rem;
+
+    .rosary-day strong {
+        font-size: 0.7rem;
     }
-    
-    .stat-number {
-        font-size: 2rem;
+
+    .rosary-day p {
+        font-size: 0.7rem;
+    }
+
+    /* Prayer cards */
+    .prayer-card {
+        padding: var(--spacing-xs);
+    }
+
+    .prayer-card h3 {
+        font-size: 1rem;
+    }
+
+    .prayer-text {
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+
+    /* Stats */
+    .activity-bar {
+        grid-template-columns: 60px 1fr 40px;
+        gap: 4px;
+    }
+
+    .activity-label {
+        font-size: 0.75rem;
+    }
+
+    .bar-container {
+        height: 20px;
+    }
+
+    .activity-percent {
+        font-size: 0.75rem;
+    }
+
+    /* Achievements em 1 coluna */
+    .achievements {
+        grid-template-columns: 1fr;
+    }
+
+    .achievement-icon {
+        font-size: 1.8rem;
+    }
+
+    /* Botões menores */
+    .btn-primary,
+    .btn-secondary {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+    }
+
+    .icon-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
+
+    /* Tabela mais compacta */
+    table {
+        font-size: 0.75rem;
+    }
+
+    th, td {
+        padding: 4px;
+    }
+
+    /* Footer */
+    footer {
+        padding: var(--spacing-sm) 0;
+        font-size: 0.85rem;
+    }
+
+    .footer-blessing {
+        font-size: 0.85rem;
+        line-height: 1.6;
     }
 }
 
