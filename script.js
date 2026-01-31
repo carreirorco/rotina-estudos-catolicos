@@ -139,7 +139,11 @@ let timerRunning = false;
 
 // ===== INICIALIZAÇÃO =====
 document.addEventListener('DOMContentLoaded', () => {
-    initializeApp();
+    try {
+        initializeApp();
+    } catch (error) {
+        console.error('Erro ao inicializar aplicação:', error);
+    }
 });
 
 function initializeApp() {
@@ -1080,7 +1084,7 @@ function calculateWeeklyProgress() {
 // ===== SERVICE WORKER (PWA) =====
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
+        navigator.serviceWorker.register('./service-worker.js')
             .then((registration) => {
                 console.log('Service Worker registrado com sucesso:', registration.scope);
             })
