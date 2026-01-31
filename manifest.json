@@ -1,0 +1,49 @@
+{
+  "name": "Rotina de Estudos Católicos",
+  "short_name": "Estudos Católicos",
+  "description": "Guia prático para catequese e preparação para Batismo/Crisma com acompanhamento diário",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#FAF7F2",
+  "theme_color": "#8B4513",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>✝️</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>✝️</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "lifestyle"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Hoje",
+      "short_name": "Hoje",
+      "description": "Ver atividades de hoje",
+      "url": "/index.html#hoje",
+      "icons": []
+    },
+    {
+      "name": "Rotina Semanal",
+      "short_name": "Rotina",
+      "description": "Ver rotina semanal de estudos",
+      "url": "/index.html#rotina",
+      "icons": []
+    },
+    {
+      "name": "Orações",
+      "short_name": "Orações",
+      "description": "Acessar orações essenciais",
+      "url": "/index.html#oracoes",
+      "icons": []
+    }
+  ]
+}

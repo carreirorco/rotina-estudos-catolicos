@@ -8,66 +8,239 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#8B4513">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Estudos Católicos">
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>✝️ Rotina de Estudos Católicos</h1>
-            <p class="subtitle">Guia prático para catequese e preparação para Batismo/Crisma</p>
+        <div class="container header-content">
+            <div class="header-main">
+                <h1>✝️ Rotina de Estudos Católicos</h1>
+                <p class="subtitle">Guia prático para catequese e preparação para Batismo/Crisma</p>
+            </div>
+            <div class="header-controls">
+                <button id="theme-toggle" class="icon-btn" title="Alternar tema escuro/claro">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <button id="notifications-toggle" class="icon-btn" title="Ativar notificações">
+                    <span>🔔</span>
+                </button>
+                <button id="export-data" class="icon-btn" title="Exportar dados">
+                    <span>💾</span>
+                </button>
+                <button id="import-data" class="icon-btn" title="Importar dados">
+                    <span>📂</span>
+                </button>
+            </div>
         </div>
     </header>
 
     <nav>
         <div class="container">
             <ul>
-                <li><a href="#inicio">Início</a></li>
-                <li><a href="#rotina">Rotina Semanal</a></li>
-                <li><a href="#oracoes">Orações</a></li>
-                <li><a href="#materiais">Materiais</a></li>
-                <li><a href="#tracker">Acompanhamento</a></li>
+                <li><a href="#hoje" data-key="1">📅 Hoje</a></li>
+                <li><a href="#inicio" data-key="2">Início</a></li>
+                <li><a href="#rotina" data-key="3">Rotina Semanal</a></li>
+                <li><a href="#oracoes" data-key="4">Orações</a></li>
+                <li><a href="#materiais" data-key="5">Materiais</a></li>
+                <li><a href="#tracker" data-key="6">Acompanhamento</a></li>
+                <li><a href="#estatisticas" data-key="7">Estatísticas</a></li>
             </ul>
         </div>
     </nav>
 
-    <main class="container">
-        <!-- SEÇÃO: INÍCIO -->
-        <section id="inicio" class="section">
-            <h2>🙏 Bem-vindo à sua jornada de fé</h2>
-            <div class="intro-box">
-                <p>Este guia foi criado para auxiliar adultos em catequese a estabelecer uma rotina sólida de estudos e oração durante a preparação para os sacramentos de Batismo, Confirmação (Crisma) e Eucaristia.</p>
-                
-                <div class="highlight-box">
-                    <h3>⏰ Horário Principal de Estudos</h3>
-                    <p class="large-text"><strong>8h20 às 9h20</strong> (após a missa das 7h)</p>
-                    <ul>
-                        <li>8h20-8h30: Preparação + café + oração inicial</li>
-                        <li>8h30-9h00: <strong>Estudo principal</strong> (30 min)</li>
-                        <li>9h00-9h20: <strong>Laudes + Terço</strong> (20 min)</li>
-                    </ul>
+    <!-- Dashboard Principal -->
+    <div class="today-banner" id="today-banner">
+        <div class="container">
+            <div class="banner-content">
+                <div class="today-info">
+                    <h2 id="current-day-name">Carregando...</h2>
+                    <p id="current-full-date">Carregando...</p>
+                </div>
+                <div class="today-streak">
+                    <div class="streak-display">
+                        <span class="streak-number" id="streak-count">0</span>
+                        <span class="streak-label">dias seguidos</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Layout Principal com Sidebar -->
+    <div class="main-layout">
+        <!-- Sidebar Esquerda -->
+        <aside class="sidebar-left">
+            <div class="sidebar-sticky">
+                <!-- Timer Pomodoro -->
+                <div class="widget pomodoro-widget">
+                    <h3>⏱️ Timer de Estudo</h3>
+                    <div class="timer-display">
+                        <div class="timer-circle">
+                            <span id="timer-minutes">25</span>:<span id="timer-seconds">00</span>
+                        </div>
+                    </div>
+                    <div class="timer-controls">
+                        <button id="timer-start" class="btn-primary">Iniciar</button>
+                        <button id="timer-pause" class="btn-secondary" disabled>Pausar</button>
+                        <button id="timer-reset" class="btn-secondary">Resetar</button>
+                    </div>
+                    <div class="timer-presets">
+                        <button class="preset-btn active" data-minutes="25">25min</button>
+                        <button class="preset-btn" data-minutes="30">30min</button>
+                        <button class="preset-btn" data-minutes="45">45min</button>
+                    </div>
                 </div>
 
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-number">30min</div>
-                        <div class="stat-label">Estudo diário</div>
+                <!-- Quick Checklist Hoje -->
+                <div class="widget quick-checklist">
+                    <h3>✅ Hoje</h3>
+                    <div class="checklist-items">
+                        <label class="check-item">
+                            <input type="checkbox" id="check-missa" data-activity="missa">
+                            <span>Missa (7h)</span>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox" id="check-estudo" data-activity="estudo">
+                            <span>Estudo (30min)</span>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox" id="check-laudes" data-activity="laudes">
+                            <span>Laudes</span>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox" id="check-terco" data-activity="terco">
+                            <span>Terço</span>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox" id="check-noturna" data-activity="noturna">
+                            <span>Oração noturna</span>
+                        </label>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-number">20min</div>
-                        <div class="stat-label">Oração estruturada</div>
+                </div>
+
+                <!-- Calendário Mini -->
+                <div class="widget mini-calendar">
+                    <h3>📅 Esta Semana</h3>
+                    <div id="mini-calendar-grid"></div>
+                </div>
+
+                <!-- Notas Rápidas -->
+                <div class="widget quick-notes">
+                    <h3>📝 Notas de Hoje</h3>
+                    <textarea id="daily-notes" placeholder="Anote suas reflexões, dúvidas ou insights do dia..."></textarea>
+                    <button id="save-notes" class="btn-primary btn-sm">Salvar</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Conteúdo Principal -->
+        <main class="main-content">
+        <!-- SEÇÃO: MEU DIA HOJE -->
+        <section id="hoje" class="section section-collapsible">
+            <div class="section-header">
+                <h2>📅 Meu Dia Hoje</h2>
+                <button class="collapse-btn" data-target="hoje">−</button>
+            </div>
+            <div class="section-content">
+                <div class="today-dashboard">
+                    <div class="today-study-card">
+                        <h3>📚 Estudo de Hoje</h3>
+                        <div id="today-study-content">
+                            <p class="material" id="today-material">Carregando...</p>
+                            <p class="action" id="today-action">Carregando...</p>
+                            <p class="duration" id="today-duration">Carregando...</p>
+                        </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-number">7 dias</div>
-                        <div class="stat-label">Rotina semanal</div>
+
+                    <div class="today-rosary-card">
+                        <h3>🙏 Terço de Hoje</h3>
+                        <div id="today-rosary-content">
+                            <div class="rosary-mystery">
+                                <span class="mystery-emoji" id="today-mystery-emoji">✨</span>
+                                <span class="mystery-name" id="today-mystery-name">Mistérios Gloriosos</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="today-prayer-card">
+                        <h3>📖 Memorização desta Semana</h3>
+                        <div id="today-prayer-content">
+                            <p id="week-prayer-name">Pai Nosso + Ave Maria</p>
+                        </div>
+                    </div>
+
+                    <div class="today-progress-card">
+                        <h3>📊 Progresso de Hoje</h3>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="today-progress-bar">
+                                <div class="progress-fill" id="today-progress-fill" style="width: 0%"></div>
+                            </div>
+                            <p class="progress-text"><span id="today-progress-percent">0</span>% completo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: INÍCIO -->
+        <section id="inicio" class="section section-collapsible">
+            <div class="section-header">
+                <h2>🙏 Bem-vindo à sua jornada de fé</h2>
+                <button class="collapse-btn" data-target="inicio">−</button>
+            </div>
+            <div class="section-content">
+            <h2>🙏 Bem-vindo à sua jornada de fé</h2>
+                <div class="intro-box">
+                    <p>Este guia foi criado para auxiliar adultos em catequese a estabelecer uma rotina sólida de estudos e oração durante a preparação para os sacramentos de Batismo, Confirmação (Crisma) e Eucaristia.</p>
+
+                    <div class="highlight-box">
+                        <h3>⏰ Horário Principal de Estudos</h3>
+                        <p class="large-text"><strong>8h20 às 9h20</strong> (após a missa das 7h)</p>
+                        <ul>
+                            <li>8h20-8h30: Preparação + café + oração inicial</li>
+                            <li>8h30-9h00: <strong>Estudo principal</strong> (30 min)</li>
+                            <li>9h00-9h20: <strong>Laudes + Terço</strong> (20 min)</li>
+                        </ul>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number">30min</div>
+                            <div class="stat-label">Estudo diário</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">20min</div>
+                            <div class="stat-label">Oração estruturada</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">7 dias</div>
+                            <div class="stat-label">Rotina semanal</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- SEÇÃO: ROTINA SEMANAL -->
-        <section id="rotina" class="section">
-            <h2>📚 Rotina Semanal de Estudos</h2>
-            
-            <div class="week-schedule">
+        <section id="rotina" class="section section-collapsible">
+            <div class="section-header">
+                <h2>📚 Rotina Semanal de Estudos</h2>
+                <button class="collapse-btn" data-target="rotina">−</button>
+            </div>
+            <div class="section-content">
+                <div class="view-toggle">
+                    <button id="toggle-week-view" class="btn-secondary">
+                        <span id="view-mode-text">Modo Compacto</span>
+                    </button>
+                </div>
+
+                <div class="week-schedule" id="week-schedule">
                 <div class="day-card">
                     <div class="day-header monday">
                         <h3>Segunda-feira</h3>
@@ -189,9 +362,13 @@
         </section>
 
         <!-- SEÇÃO: ORAÇÕES -->
-        <section id="oracoes" class="section">
-            <h2>📖 Orações Essenciais para Memorizar</h2>
-            
+        <section id="oracoes" class="section section-collapsible">
+            <div class="section-header">
+                <h2>📖 Orações Essenciais para Memorizar</h2>
+                <button class="collapse-btn" data-target="oracoes">−</button>
+            </div>
+            <div class="section-content">
+
             <div class="prayers-intro">
                 <p>Memorize uma oração por semana seguindo o plano abaixo:</p>
             </div>
@@ -313,12 +490,17 @@
                     <li>👨‍🏫 <strong>Ensine para alguém</strong> - ensinar fixa o aprendizado</li>
                 </ul>
             </div>
+            </div>
         </section>
 
         <!-- SEÇÃO: MATERIAIS -->
-        <section id="materiais" class="section">
-            <h2>📚 Materiais Necessários</h2>
-            
+        <section id="materiais" class="section section-collapsible">
+            <div class="section-header">
+                <h2>📚 Materiais Necessários</h2>
+                <button class="collapse-btn" data-target="materiais">−</button>
+            </div>
+            <div class="section-content">
+
             <div class="materials-grid">
                 <div class="material-category">
                     <h3>✅ Prioridade Urgente (Semana 1)</h3>
@@ -357,12 +539,17 @@
                     </ul>
                 </div>
             </div>
+            </div>
         </section>
 
         <!-- SEÇÃO: TRACKER -->
-        <section id="tracker" class="section">
-            <h2>📊 Acompanhamento Semanal</h2>
-            
+        <section id="tracker" class="section section-collapsible">
+            <div class="section-header">
+                <h2>📊 Acompanhamento Semanal</h2>
+                <button class="collapse-btn" data-target="tracker">−</button>
+            </div>
+            <div class="section-content">
+
             <div class="tracker-intro">
                 <p>Use esta tabela para acompanhar seu progresso. Meta: pelo menos <strong>5 dias completos por semana</strong>.</p>
             </div>
@@ -502,6 +689,86 @@
                     </div>
                 </div>
             </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: ESTATÍSTICAS -->
+        <section id="estatisticas" class="section section-collapsible">
+            <div class="section-header">
+                <h2>📈 Estatísticas e Histórico</h2>
+                <button class="collapse-btn" data-target="estatisticas">−</button>
+            </div>
+            <div class="section-content">
+                <div class="stats-overview">
+                    <div class="stat-widget">
+                        <h3>📅 Calendário Mensal</h3>
+                        <div id="monthly-calendar"></div>
+                    </div>
+
+                    <div class="stat-widget">
+                        <h3>📊 Progresso por Atividade</h3>
+                        <div class="activity-stats" id="activity-stats">
+                            <div class="activity-bar">
+                                <span class="activity-label">Missa</span>
+                                <div class="bar-container">
+                                    <div class="bar-fill" data-activity="missa" style="width: 0%"></div>
+                                </div>
+                                <span class="activity-percent" data-activity="missa-percent">0%</span>
+                            </div>
+                            <div class="activity-bar">
+                                <span class="activity-label">Estudo</span>
+                                <div class="bar-container">
+                                    <div class="bar-fill" data-activity="estudo" style="width: 0%"></div>
+                                </div>
+                                <span class="activity-percent" data-activity="estudo-percent">0%</span>
+                            </div>
+                            <div class="activity-bar">
+                                <span class="activity-label">Laudes</span>
+                                <div class="bar-container">
+                                    <div class="bar-fill" data-activity="laudes" style="width: 0%"></div>
+                                </div>
+                                <span class="activity-percent" data-activity="laudes-percent">0%</span>
+                            </div>
+                            <div class="activity-bar">
+                                <span class="activity-label">Terço</span>
+                                <div class="bar-container">
+                                    <div class="bar-fill" data-activity="terco" style="width: 0%"></div>
+                                </div>
+                                <span class="activity-percent" data-activity="terco-percent">0%</span>
+                            </div>
+                            <div class="activity-bar">
+                                <span class="activity-label">Oração Noturna</span>
+                                <div class="bar-container">
+                                    <div class="bar-fill" data-activity="noturna" style="width: 0%"></div>
+                                </div>
+                                <span class="activity-percent" data-activity="noturna-percent">0%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-widget">
+                        <h3>🏆 Conquistas</h3>
+                        <div class="achievements" id="achievements">
+                            <div class="achievement locked" data-achievement="week1">
+                                <span class="achievement-icon">🎯</span>
+                                <span class="achievement-name">Primeira Semana</span>
+                            </div>
+                            <div class="achievement locked" data-achievement="streak7">
+                                <span class="achievement-icon">🔥</span>
+                                <span class="achievement-name">7 Dias Seguidos</span>
+                            </div>
+                            <div class="achievement locked" data-achievement="streak30">
+                                <span class="achievement-icon">⭐</span>
+                                <span class="achievement-name">30 Dias Seguidos</span>
+                            </div>
+                            <div class="achievement locked" data-achievement="prayers">
+                                <span class="achievement-icon">📿</span>
+                                <span class="achievement-name">Todas as Orações</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- SEÇÃO: CITAÇÕES -->
@@ -519,7 +786,65 @@
                 <p class="quote-author">— São Francisco de Sales</p>
             </div>
         </section>
-    </main>
+        </main>
+
+        <!-- Painel Lateral Direito -->
+        <aside class="sidebar-right">
+            <div class="sidebar-sticky">
+                <!-- Mistério do Terço Hoje -->
+                <div class="widget rosary-today">
+                    <h3>🙏 Terço Hoje</h3>
+                    <div class="rosary-display">
+                        <div class="rosary-mystery-large" id="sidebar-rosary">
+                            <span class="mystery-emoji-large">✨</span>
+                            <span class="mystery-name-large">Gloriosos</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Santo do Dia -->
+                <div class="widget saint-day">
+                    <h3>✨ Santo do Dia</h3>
+                    <div class="saint-content" id="saint-content">
+                        <p class="saint-name" id="saint-name">São do dia</p>
+                        <p class="saint-desc">Clique para saber mais</p>
+                    </div>
+                </div>
+
+                <!-- Versículo do Dia -->
+                <div class="widget verse-day">
+                    <h3>📖 Versículo</h3>
+                    <div class="verse-content">
+                        <p class="verse-text" id="verse-text">"Tudo posso naquele que me fortalece"</p>
+                        <p class="verse-ref" id="verse-ref">Filipenses 4:13</p>
+                    </div>
+                </div>
+
+                <!-- Orações Rápidas -->
+                <div class="widget quick-prayers">
+                    <h3>⚡ Orações Rápidas</h3>
+                    <div class="prayer-links">
+                        <a href="#" class="prayer-link" data-prayer="pai-nosso">Pai Nosso</a>
+                        <a href="#" class="prayer-link" data-prayer="ave-maria">Ave Maria</a>
+                        <a href="#" class="prayer-link" data-prayer="gloria">Glória</a>
+                        <a href="#" class="prayer-link" data-prayer="credo">Credo</a>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Modal para Orações -->
+    <div id="prayer-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h3 id="modal-prayer-title"></h3>
+            <div id="modal-prayer-text"></div>
+        </div>
+    </div>
+
+    <!-- Input hidden para importar dados -->
+    <input type="file" id="import-file-input" accept=".json" style="display: none;">
 
     <footer>
         <div class="container">
